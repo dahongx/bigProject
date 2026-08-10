@@ -1,0 +1,88 @@
+"""
+配置文件示例
+
+使用方法：
+1. 复制此文件为 config.yaml
+2. 填写实际的API密钥和路径
+3. config.yaml 已在 .gitignore 中，不会被提交
+"""
+
+# 项目基础配置
+project:
+  name: "CNC Voice RAG Platform"
+  version: "0.1.0"
+  data_dir: "data"
+  output_dir: "experiments/outputs"
+  log_dir: "experiments/logs"
+
+# 数控系统配置（首选）
+cnc_system:
+  primary: "FANUC"  # FANUC, SIEMENS, HNC
+  models: ["0i-MF", "0i-TD"]
+
+# 文档解析配置
+document_parsing:
+  chunk_size: 512
+  chunk_overlap: 50
+  chunk_method: "semantic"  # fixed, heading, semantic
+  preserve_tables: true
+  extract_images: false
+
+# 检索配置
+retrieval:
+  bm25:
+    k1: 1.5
+    b: 0.75
+  vector:
+    model: "BAAI/bge-large-zh-v1.5"
+    top_k: 20
+  hybrid:
+    alpha: 0.5  # BM25权重
+    fusion_method: "rrf"  # rrf, weighted
+  rerank:
+    enabled: true
+    model: "BAAI/bge-reranker-large"
+    top_k: 5
+
+# 大模型配置
+llm:
+  provider: "local"  # local, openai, qwen
+  model: "Qwen/Qwen2.5-7B-Instruct"
+  max_tokens: 2048
+  temperature: 0.1
+  api_key: "your-api-key-here"
+  api_base: "http://localhost:8000/v1"
+
+# ASR配置
+asr:
+  provider: "funasr"  # funasr, whisper
+  model: "paraformer-zh"
+  language: "zh"
+  enable_hotwords: true
+
+# TTS配置
+tts:
+  provider: "edge"  # edge, cosyvoice
+  voice: "zh-CN-XiaoxiaoNeural"
+  speed: 1.0
+
+# ESP32硬件配置
+esp32:
+  enabled: false
+  websocket_url: "ws://localhost:8080/ws"
+  audio_format: "opus"
+
+# 实验配置
+experiment:
+  random_seed: 42
+  test_size: 0.2
+  metrics:
+    - "recall@5"
+    - "recall@10"
+    - "mrr"
+    - "ndcg@10"
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
