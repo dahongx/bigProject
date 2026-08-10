@@ -87,7 +87,13 @@ Thumbs.db
 # xiaozhi-esp32-server (upstream reference, large)
 xiaozhi-esp32-server/
 
+# aifaq_to_deploy (old reference project)
+aifaq_to_deploy/
+
 # Temporary test files
 test_*.py
 scratch/
 temp/
+
+# aifaq_to_deploy (old reference project)
+aifaq_to_deploy/
