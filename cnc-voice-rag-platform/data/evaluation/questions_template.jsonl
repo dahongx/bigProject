@@ -1,0 +1,5 @@
+{"id":"Q001","question":"G01指令是什么意思？","question_type":"事实查询","knowledge_category":"编程知识","cnc_system":"通用","model":null,"difficulty":"简单","requires_multi_hop":false,"metadata":{"contains_code":true,"contains_terminology":false}}
+{"id":"Q002","question":"M03和M04有什么区别？","question_type":"对比查询","knowledge_category":"编程知识","cnc_system":"通用","model":null,"difficulty":"简单","requires_multi_hop":false,"metadata":{"contains_code":true,"contains_terminology":false}}
+{"id":"Q003","question":"如何返回机床参考点？","question_type":"步骤查询","knowledge_category":"操作知识","cnc_system":"通用","model":null,"difficulty":"中等","requires_multi_hop":false,"metadata":{"contains_code":false,"contains_terminology":true}}
+{"id":"Q004","question":"G54是什么意思？","question_type":"事实查询","knowledge_category":"编程知识","cnc_system":"通用","model":null,"difficulty":"简单","requires_multi_hop":false,"metadata":{"contains_code":true,"contains_terminology":true}}
+{"id":"Q005","question":"刀具补偿有哪几种？","question_type":"枚举查询","knowledge_category":"编程知识","cnc_system":"通用","model":null,"difficulty":"中等","requires_multi_hop":false,"metadata":{"contains_code":false,"contains_terminology":true}}
