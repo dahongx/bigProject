@@ -90,6 +90,10 @@ xiaozhi-esp32-server/
 # aifaq_to_deploy (old reference project)
 aifaq_to_deploy/
 
+# Virtual environments and caches
+cnc-voice-rag-platform/.venv-ocr/
+cnc-voice-rag-platform/.cache/
+
 # Temporary test files
 test_*.py
 scratch/
