@@ -1,0 +1,8 @@
+# Direct OCR dependencies. Transitive versions are captured in the run report.
+paddlepaddle==3.2.0
+paddleocr==3.7.0
+paddlex==3.7.2
+pypdfium2==5.13.0
+Pillow==11.3.0
+PyYAML==6.0.2
+tqdm==4.70.0

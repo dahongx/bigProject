@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "counts": {
+    "questions": 30,
+    "answers": 30,
+    "cited_answers": 30,
+    "evidence_records": 31,
+    "retrieval_labels": 30
+  },
+  "duplicate_question_ids": [],
+  "duplicate_answer_question_ids": [],
+  "duplicate_evidence_ids": [],
+  "questions_without_answers": [],
+  "answers_without_questions": [],
+  "missing_evidence_ids": [],
+  "unreferenced_evidence_ids": [],
+  "missing_source_block_ids": [],
+  "questions_without_retrieval_labels": [],
+  "retrieval_labels_without_questions": [],
+  "duplicate_retrieval_question_ids": [],
+  "missing_retrieval_evidence_ids": [],
+  "answer_label_disagreements": [],
+  "answers_without_cited_view": [],
+  "cited_view_without_answers": [],
+  "duplicate_cited_answer_ids": [],
+  "invalid_expanded_citations": [],
+  "non_reviewed_answers": [],
+  "non_reviewed_evidence": []
+}

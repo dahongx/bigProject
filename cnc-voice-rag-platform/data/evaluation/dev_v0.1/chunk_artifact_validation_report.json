@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "strategies": {
+    "fixed": {
+      "chunk_count": 48,
+      "mapping_count": 30,
+      "duplicate_chunk_ids": [],
+      "missing_source_block_ids": [],
+      "empty_chunks": [],
+      "invalid_citations": [],
+      "invalid_candidate_chunk_ids": [],
+      "incomplete_evidence_coverage": [],
+      "questions_without_candidates": [],
+      "non_draft_mappings": []
+    },
+    "structural": {
+      "chunk_count": 57,
+      "mapping_count": 30,
+      "duplicate_chunk_ids": [],
+      "missing_source_block_ids": [],
+      "empty_chunks": [],
+      "invalid_citations": [],
+      "invalid_candidate_chunk_ids": [],
+      "incomplete_evidence_coverage": [],
+      "questions_without_candidates": [],
+      "non_draft_mappings": []
+    }
+  }
+}

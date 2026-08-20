@@ -1,128 +1,161 @@
-"""
-BM25检索基线实验
-"""
+"""Reproducible dependency-free BM25 baseline for the CNC RAG project."""
 
+from __future__ import annotations
+
+import argparse
 import json
+import math
+import re
+import sys
+from collections import Counter
 from pathlib import Path
-from typing import List, Dict
-import numpy as np
-from rank_bm25 import BM25Okapi
-import jieba
+from typing import Any
+
+
+LATIN_TOKEN_RE = re.compile(r"[a-z]+\d*(?:\.\d+)?|\d+(?:\.\d+)?", re.I)
+CHINESE_RE = re.compile(r"[\u4e00-\u9fff]+")
+
+
+def tokenize(text: str) -> list[str]:
+    """Keep CNC codes whole and use deterministic Chinese uni/bi-grams."""
+
+    normalized = text.lower().replace("０", "0").replace("１", "1")
+    tokens = LATIN_TOKEN_RE.findall(normalized)
+    for span in CHINESE_RE.findall(normalized):
+        tokens.extend(span)
+        tokens.extend(span[index : index + 2] for index in range(len(span) - 1))
+    return tokens
 
 
 class BM25Baseline:
-    """BM25检索基线"""
-
-    def __init__(self, corpus: List[Dict]):
-        """
-        初始化BM25索引
-
-        Args:
-            corpus: 文档列表，每个文档是包含'id'和'text'的字典
-        """
+    def __init__(self, corpus: list[dict[str, Any]], *, k1: float = 1.5, b: float = 0.75):
+        if not corpus:
+            raise ValueError("corpus must not be empty")
         self.corpus = corpus
-        self.doc_ids = [doc['id'] for doc in corpus]
+        self.doc_ids = [str(doc.get("id", doc.get("evidence_id", doc.get("chunk_id")))) for doc in corpus]
+        if any(doc_id == "None" for doc_id in self.doc_ids):
+            raise ValueError("each corpus record needs id or evidence_id")
+        self.k1 = k1
+        self.b = b
+        self.tokenized = [tokenize(str(doc["text"])) for doc in corpus]
+        self.term_frequencies = [Counter(tokens) for tokens in self.tokenized]
+        self.doc_lengths = [len(tokens) for tokens in self.tokenized]
+        self.avg_doc_length = sum(self.doc_lengths) / len(self.doc_lengths)
+        document_frequency = Counter(token for tokens in self.tokenized for token in set(tokens))
+        count = len(corpus)
+        self.idf = {
+            token: math.log(1.0 + (count - frequency + 0.5) / (frequency + 0.5))
+            for token, frequency in document_frequency.items()
+        }
 
-        # 分词
-        tokenized_corpus = [list(jieba.cut(doc['text'])) for doc in corpus]
-
-        # 构建BM25索引
-        self.bm25 = BM25Okapi(tokenized_corpus)
-        print(f"已构建BM25索引，文档数量: {len(corpus)}")
-
-    def search(self, query: str, top_k: int = 10) -> List[Dict]:
-        """
-        检索相关文档
-
-        Args:
-            query: 查询文本
-            top_k: 返回前k个结果
-
-        Returns:
-            相关文档列表，包含id、text和score
-        """
-        # 查询分词
-        tokenized_query = list(jieba.cut(query))
-
-        # BM25评分
-        scores = self.bm25.get_scores(tokenized_query)
-
-        # 获取top-k
-        top_indices = np.argsort(scores)[::-1][:top_k]
-
-        results = []
-        for idx in top_indices:
-            if scores[idx] > 0:  # 只返回得分大于0的结果
-                results.append({
-                    'id': self.doc_ids[idx],
-                    'text': self.corpus[idx]['text'],
-                    'score': float(scores[idx])
-                })
-
-        return results
-
-
-def load_evaluation_data(eval_dir: Path) -> tuple:
-    """加载评测数据"""
-    questions = []
-    with open(eval_dir / "questions.jsonl", "r", encoding="utf-8") as f:
-        for line in f:
-            questions.append(json.loads(line))
-
-    answers = {}
-    with open(eval_dir / "answers.jsonl", "r", encoding="utf-8") as f:
-        for line in f:
-            ans = json.loads(line)
-            answers[ans['question_id']] = ans
-
-    return questions, answers
+    def search(self, query: str, top_k: int = 10) -> list[dict[str, Any]]:
+        query_terms = Counter(tokenize(query))
+        scores = []
+        for index, frequencies in enumerate(self.term_frequencies):
+            length_norm = 1.0 - self.b + self.b * self.doc_lengths[index] / self.avg_doc_length
+            score = 0.0
+            for term, query_frequency in query_terms.items():
+                frequency = frequencies.get(term, 0)
+                if not frequency:
+                    continue
+                score += query_frequency * self.idf.get(term, 0.0) * (
+                    frequency * (self.k1 + 1.0) / (frequency + self.k1 * length_norm)
+                )
+            scores.append(score)
+        ranked = sorted(range(len(scores)), key=lambda index: (-scores[index], self.doc_ids[index]))
+        return [
+            {
+                "id": self.doc_ids[index],
+                "text": self.corpus[index]["text"],
+                "score": round(scores[index], 8),
+                "citation": self.corpus[index].get("citation"),
+                "review_status": self.corpus[index].get("review_status"),
+                "strategy": self.corpus[index].get("strategy"),
+            }
+            for index in ranked[:top_k]
+        ]
 
 
-def calculate_recall_at_k(retrieved_ids: List[str], relevant_ids: List[str], k: int) -> float:
-    """计算Recall@K"""
-    retrieved_k = set(retrieved_ids[:k])
-    relevant = set(relevant_ids)
-
-    if not relevant:
-        return 0.0
-
-    return len(retrieved_k & relevant) / len(relevant)
+def load_jsonl(path: Path) -> list[dict[str, Any]]:
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def main():
-    # TODO: 实际实现时需要加载真实的文档chunks和评测数据
-    print("BM25基线实验")
-    print("=" * 50)
+def parse_args() -> argparse.Namespace:
+    root = Path(__file__).resolve().parents[2]
+    dataset = root / "data/evaluation/dev_v0.1"
+    parser = argparse.ArgumentParser(description="Run the BM25 smoke baseline")
+    parser.add_argument("--corpus", type=Path, default=dataset / "reviewed_evidence.v0.1.jsonl")
+    parser.add_argument("--questions", type=Path, default=dataset / "questions.draft.jsonl")
+    parser.add_argument("--answers", type=Path, default=dataset / "answers.reviewed.jsonl")
+    parser.add_argument("--relevance", type=Path, default=dataset / "retrieval_eval.reviewed.jsonl")
+    parser.add_argument("--output", type=Path, default=root / "experiments/results/bm25_dev_v0.1_smoke.json")
+    parser.add_argument("--top-k", type=int, default=10)
+    parser.add_argument("--text-field", default="text")
+    parser.add_argument("--experiment-id", default="BM25_DEV_V0.1_SMOKE")
+    parser.add_argument("--experiment-kind", default="engineering_smoke_test_not_thesis_result")
+    parser.add_argument("--k1", type=float, default=1.5)
+    parser.add_argument("--b", type=float, default=0.75)
+    return parser.parse_args()
 
-    # 示例：构造简单测试数据
-    corpus = [
-        {"id": "doc1", "text": "G01指令用于直线插补，F参数指定进给速度"},
-        {"id": "doc2", "text": "M03指令使主轴正转，M04指令使主轴反转"},
-        {"id": "doc3", "text": "机床零点是机床固有的基准点"},
-    ]
 
-    baseline = BM25Baseline(corpus)
+def main() -> int:
+    args = parse_args()
+    if args.top_k <= 0:
+        raise ValueError("top-k must be positive")
+    raw_corpus = load_jsonl(args.corpus)
+    corpus = [{**row, "text": row[args.text_field]} for row in raw_corpus]
+    questions = load_jsonl(args.questions)
+    answers = {row["question_id"]: row for row in load_jsonl(args.answers)}
+    relevance = {row["question_id"]: row for row in load_jsonl(args.relevance)}
+    baseline = BM25Baseline(corpus, k1=args.k1, b=args.b)
 
-    # 测试查询
-    query = "G01的F参数是什么意思"
-    results = baseline.search(query, top_k=3)
+    records = []
+    for question in questions:
+        answer = answers[question["id"]]
+        label = relevance[question["id"]]
+        if "relevant_evidence" in label:
+            judgments = [
+                {"id": item["evidence_id"], "relevance": item["relevance"]}
+                for item in label["relevant_evidence"]
+            ]
+        else:
+            judgments = [
+                {"id": item["chunk_id"], "relevance": item["proposed_relevance"]}
+                for item in label["relevant_chunk_candidates"]
+            ]
+        relevant_ids = [item["id"] for item in judgments]
+        results = baseline.search(question["question"], top_k=min(args.top_k, len(corpus)))
+        records.append({
+            "question_id": question["id"],
+            "question": question["question"],
+            "relevant_ids": relevant_ids,
+            "relevance": {item["id"]: item["relevance"] for item in judgments},
+            "retrieved_ids": [item["id"] for item in results],
+            "results": [{"rank": rank, **item} for rank, item in enumerate(results, 1)],
+        })
 
-    print(f"\n查询: {query}")
-    print(f"检索结果 (Top-{len(results)}):")
-    for i, result in enumerate(results, 1):
-        print(f"{i}. [Score: {result['score']:.4f}] {result['text'][:50]}...")
+    service_root = Path(__file__).resolve().parents[2] / "services/cnc-rag"
+    sys.path.insert(0, str(service_root))
+    from evaluation.retrieval_metrics import evaluate_retrieval
 
-    print("\n提示: 这是示例代码，实际使用时需要:")
-    print("1. 加载 data/chunks/ 中的文档分块")
-    print("2. 加载 data/evaluation/ 中的测试问题")
-    print("3. 计算完整的评价指标（Recall@K, MRR, nDCG）")
-    print("4. 保存实验结果到 experiments/results/")
+    metrics = evaluate_retrieval(records, k_values=(1, 3, 5, 10))
+    report = {
+        "experiment_id": args.experiment_id,
+        "experiment_kind": args.experiment_kind,
+        "corpus": str(args.corpus),
+        "questions": str(args.questions),
+        "answers": str(args.answers),
+        "relevance": str(args.relevance),
+        "configuration": {"tokenizer": "latin_tokens_plus_chinese_unigram_bigram", "text_field": args.text_field, "k1": args.k1, "b": args.b, "top_k": args.top_k},
+        "dataset_counts": {"documents": len(corpus), "questions": len(questions)},
+        "metrics": metrics,
+        "records": records,
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({key: value for key, value in report.items() if key != "records"}, ensure_ascii=False, indent=2))
+    return 0
 
 
 if __name__ == "__main__":
-    # 需要先安装: pip install rank-bm25 jieba
-    try:
-        from rank_bm25 import BM25Okapi
-        main()
-    except ImportError:
-        print("请先安装依赖: pip install rank-bm25 jieba")
+    raise SystemExit(main())

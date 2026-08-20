@@ -1,0 +1,51 @@
+{
+  "status": "pass",
+  "profiles": {
+    "fixed_t256_o51": {
+      "chunk_count": 48,
+      "mapping_count": 30,
+      "file_hash_matches": true,
+      "duplicate_chunk_ids": [],
+      "empty_chunks": [],
+      "invalid_token_counts": [],
+      "invalid_citations": [],
+      "invalid_source_fragments": [],
+      "questions_without_candidates": []
+    },
+    "fixed_t512_o102": {
+      "chunk_count": 24,
+      "mapping_count": 30,
+      "file_hash_matches": true,
+      "duplicate_chunk_ids": [],
+      "empty_chunks": [],
+      "invalid_token_counts": [],
+      "invalid_citations": [],
+      "invalid_source_fragments": [],
+      "questions_without_candidates": []
+    },
+    "fixed_t1024_o205": {
+      "chunk_count": 12,
+      "mapping_count": 30,
+      "file_hash_matches": true,
+      "duplicate_chunk_ids": [],
+      "empty_chunks": [],
+      "invalid_token_counts": [],
+      "invalid_citations": [],
+      "invalid_source_fragments": [],
+      "questions_without_candidates": []
+    },
+    "structural_t512": {
+      "chunk_count": 53,
+      "mapping_count": 30,
+      "file_hash_matches": true,
+      "duplicate_chunk_ids": [],
+      "empty_chunks": [],
+      "invalid_token_counts": [],
+      "invalid_citations": [],
+      "invalid_source_fragments": [],
+      "questions_without_candidates": []
+    }
+  },
+  "source_hash_matches": true,
+  "tokenizer_hash_matches": true
+}

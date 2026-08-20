@@ -1,0 +1,26 @@
+{
+  "status": "draft_pending_human_review",
+  "minimum_fragment_coverage": 0.5,
+  "profiles": {
+    "fixed_t256_o51": {
+      "questions": 30,
+      "candidate_pairs": 55,
+      "questions_without_candidates": []
+    },
+    "fixed_t512_o102": {
+      "questions": 30,
+      "candidate_pairs": 46,
+      "questions_without_candidates": []
+    },
+    "fixed_t1024_o205": {
+      "questions": 30,
+      "candidate_pairs": 39,
+      "questions_without_candidates": []
+    },
+    "structural_t512": {
+      "questions": 30,
+      "candidate_pairs": 41,
+      "questions_without_candidates": []
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "status": "pass",
+  "representative_page_checks": [
+    {
+      "pdf_page": 4,
+      "array_lengths_equal": true,
+      "expected_tokens": [
+        "978-7-122-29046-5"
+      ],
+      "missing_expected_tokens": []
+    },
+    {
+      "pdf_page": 6,
+      "array_lengths_equal": true,
+      "expected_tokens": [
+        "目录"
+      ],
+      "missing_expected_tokens": []
+    },
+    {
+      "pdf_page": 113,
+      "array_lengths_equal": true,
+      "expected_tokens": [
+        "G90",
+        "表2-30"
+      ],
+      "missing_expected_tokens": []
+    },
+    {
+      "pdf_page": 145,
+      "array_lengths_equal": true,
+      "expected_tokens": [
+        "G41",
+        "G42",
+        "G90",
+        "G91"
+      ],
+      "missing_expected_tokens": []
+    },
+    {
+      "pdf_page": 181,
+      "array_lengths_equal": true,
+      "expected_tokens": [
+        "G80",
+        "G81",
+        "G83",
+        "G84"
+      ],
+      "missing_expected_tokens": []
+    }
+  ],
+  "batch_checks": {
+    "block_count": 617,
+    "pages": [
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153
+    ],
+    "page_count": 27,
+    "duplicate_block_ids": [],
+    "duplicate_source_line_ids": [],
+    "missing_source_line_ids": [],
+    "unexpected_source_line_ids": [],
+    "invalid_printed_page_mappings": [],
+    "empty_text_blocks": [],
+    "invalid_review_status": []
+  }
+}

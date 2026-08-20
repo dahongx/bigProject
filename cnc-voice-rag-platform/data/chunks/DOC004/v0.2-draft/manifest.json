@@ -1,0 +1,230 @@
+{
+  "status": "draft_not_for_final_thesis_experiment",
+  "version": "0.2-draft",
+  "source": {
+    "file": "E:\\big\\cnc-voice-rag-platform\\data\\parsed\\DOC004\\blocks.batch_001.draft.jsonl",
+    "sha256": "5bc03b918e242da17a4ce6a46d1253c7e207485605545b57da833de8e8a72230",
+    "page_ranges": [
+      [
+        111,
+        128
+      ],
+      [
+        145,
+        153
+      ]
+    ]
+  },
+  "tokenizer": {
+    "name": "BAAI/bge-m3",
+    "file": "E:\\big\\cnc-voice-rag-platform\\models\\bge-m3-tokenizer\\tokenizer.json",
+    "sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+    "special_tokens_excluded_from_chunk_counts": true
+  },
+  "profiles": {
+    "fixed_t256_o51": {
+      "file": "fixed_t256_o51.jsonl",
+      "sha256": "d8b14d8d1056c1a17c54948837d3049003a45847abf3af1286640ef127bb0b02",
+      "report": {
+        "chunk_count": 48,
+        "average_tokens": 248.48,
+        "minimum_tokens": 76,
+        "maximum_tokens": 256,
+        "average_characters": 344.69,
+        "chunks_with_ocr_issues": 42,
+        "chunks_over_target": [],
+        "page_coverage": [
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153
+        ],
+        "block_type_counts": {
+          "caption": 33,
+          "code": 40,
+          "exercise_heading": 12,
+          "heading": 15,
+          "label": 16,
+          "paragraph": 48,
+          "subheading": 20
+        }
+      }
+    },
+    "fixed_t512_o102": {
+      "file": "fixed_t512_o102.jsonl",
+      "sha256": "61e68ef4c063c43b9226c1bdbb6cbb098b11ba535e999f8ad92c10b3401d9be0",
+      "report": {
+        "chunk_count": 24,
+        "average_tokens": 492.75,
+        "minimum_tokens": 280,
+        "maximum_tokens": 512,
+        "average_characters": 681.5,
+        "chunks_with_ocr_issues": 24,
+        "chunks_over_target": [],
+        "page_coverage": [
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153
+        ],
+        "block_type_counts": {
+          "caption": 23,
+          "code": 22,
+          "exercise_heading": 12,
+          "heading": 12,
+          "label": 15,
+          "paragraph": 24,
+          "subheading": 18
+        }
+      }
+    },
+    "fixed_t1024_o205": {
+      "file": "fixed_t1024_o205.jsonl",
+      "sha256": "c526c2a95ef7ffb2d7476fc629efd38f27272c1b1960e2029ce99af55738d719",
+      "report": {
+        "chunk_count": 12,
+        "average_tokens": 969.5,
+        "minimum_tokens": 696,
+        "maximum_tokens": 1024,
+        "average_characters": 1344.92,
+        "chunks_with_ocr_issues": 12,
+        "chunks_over_target": [],
+        "page_coverage": [
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153
+        ],
+        "block_type_counts": {
+          "caption": 12,
+          "code": 12,
+          "exercise_heading": 9,
+          "heading": 11,
+          "label": 12,
+          "paragraph": 12,
+          "subheading": 11
+        }
+      }
+    },
+    "structural_t512": {
+      "file": "structural_t512.jsonl",
+      "sha256": "a4f31f4c93d3a17c381d4af39227d95a8077832719c7520c13e31e8d4b4bf65e",
+      "report": {
+        "chunk_count": 53,
+        "average_tokens": 180.79,
+        "minimum_tokens": 17,
+        "maximum_tokens": 511,
+        "average_characters": 250.08,
+        "chunks_with_ocr_issues": 39,
+        "chunks_over_target": [],
+        "page_coverage": [
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153
+        ],
+        "block_type_counts": {
+          "caption": 29,
+          "code": 35,
+          "exercise_heading": 10,
+          "heading": 18,
+          "label": 13,
+          "paragraph": 53,
+          "subheading": 20
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "document_id": "DOC004",
+  "filename": "FANUC数控编程手册_杜军_化工出版社.pdf",
+  "title": "FANUC数控编程手册",
+  "author": "杜军",
+  "publisher": "化学工业出版社",
+  "vendor": "FANUC",
+  "cnc_system": "通用",
+  "model": null,
+  "version": "2017年第1版第1次印刷",
+  "publication_date": "2017-05",
+  "isbn": "978-7-122-29046-5",
+  "pdf_pages": 339,
+  "file_size_bytes": 46038355,
+  "sha256": "695834FDA332E8FA3A4205325C6F546333E29C9A4091E53FDDB68EB5BE19BE3C",
+  "source": "待用户确认",
+  "license": "版权受保护，仅限本地研究，不公开原文",
+  "is_scanned_pdf": true,
+  "ocr_status": "batch_001_block_draft_complete_manual_review_pending",
+  "ocr_batches": [
+    {
+      "batch_id": "OCR_BATCH_001",
+      "pdf_pages": "111-128,145-153",
+      "page_count": 27,
+      "total_lines": 1087,
+      "total_characters": 14122,
+      "weighted_average_confidence": 0.9272,
+      "average_elapsed_seconds_per_page": 6.423,
+      "missing_pages": [],
+      "empty_pages": [],
+      "report": "ocr_batch_001_report.json"
+    }
+  ],
+  "block_batches": [
+    {
+      "batch_id": "OCR_BATCH_001",
+      "artifact": "blocks.batch_001.draft.jsonl",
+      "status": "draft_requires_manual_review",
+      "block_count": 617,
+      "represented_source_lines": 1087,
+      "manual_review_queue_rows": 152,
+      "validation_report": "block_validation_report.json"
+    }
+  ],
+  "page_numbering": {
+    "pdf_page_base": 1,
+    "pdf_index_base": 0,
+    "printed_page_mapping_status": "main_text_pdf_page_equals_printed_page_plus_8"
+  }
+}

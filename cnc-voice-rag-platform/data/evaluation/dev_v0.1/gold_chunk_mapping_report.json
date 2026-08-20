@@ -1,0 +1,15 @@
+{
+  "status": "draft_pending_human_review",
+  "strategies": {
+    "fixed": {
+      "questions": 30,
+      "candidate_pairs": 62,
+      "questions_without_candidates": []
+    },
+    "structural": {
+      "questions": 30,
+      "candidate_pairs": 41,
+      "questions_without_candidates": []
+    }
+  }
+}

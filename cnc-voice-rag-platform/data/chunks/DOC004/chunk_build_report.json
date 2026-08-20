@@ -1,0 +1,101 @@
+{
+  "status": "draft_not_for_final_thesis_experiment",
+  "source": "E:\\big\\cnc-voice-rag-platform\\data\\parsed\\DOC004\\blocks.batch_001.draft.jsonl",
+  "configuration": {
+    "fixed_size": 350,
+    "fixed_overlap": 70,
+    "structural_max": 600
+  },
+  "strategies": {
+    "fixed": {
+      "chunk_count": 48,
+      "average_characters": 344.23,
+      "minimum_characters": 92,
+      "maximum_characters": 350,
+      "chunks_with_issues": 39,
+      "page_coverage": [
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153
+      ],
+      "block_type_counts": {
+        "caption": 35,
+        "code": 40,
+        "exercise_heading": 11,
+        "heading": 14,
+        "label": 16,
+        "paragraph": 48,
+        "subheading": 22
+      }
+    },
+    "structural": {
+      "chunk_count": 57,
+      "average_characters": 232.46,
+      "minimum_characters": 79,
+      "maximum_characters": 598,
+      "chunks_with_issues": 41,
+      "page_coverage": [
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153
+      ],
+      "block_type_counts": {
+        "caption": 31,
+        "code": 38,
+        "exercise_heading": 10,
+        "heading": 14,
+        "label": 13,
+        "paragraph": 57,
+        "subheading": 21
+      }
+    }
+  }
+}

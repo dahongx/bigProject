@@ -1,0 +1,10 @@
+{"question_id":"QDEV001","answer":null,"evidence":[],"answer_type":"definitive","safety_level":"safe","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV002","answer":null,"evidence":[],"answer_type":"conditional","safety_level":"safe","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV003","answer":null,"evidence":[],"answer_type":"comparative","safety_level":"safe","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV004","answer":null,"evidence":[],"answer_type":"conditional","safety_level":"safe","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV005","answer":null,"evidence":[],"answer_type":"definitive","safety_level":"requires_caution","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV006","answer":null,"evidence":[],"answer_type":"definitive","safety_level":"safe","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV007","answer":null,"evidence":[],"answer_type":"definitive","safety_level":"safe","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV008","answer":null,"evidence":[],"answer_type":"comparative","safety_level":"safe","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV009","answer":null,"evidence":[],"answer_type":"procedural","safety_level":"requires_caution","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
+{"question_id":"QDEV010","answer":null,"evidence":[],"answer_type":"comparative","safety_level":"safe","requires_confirmation":false,"annotation_status":"awaiting_reviewed_evidence"}
